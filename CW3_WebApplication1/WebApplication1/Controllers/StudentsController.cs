@@ -13,8 +13,8 @@ namespace WebApplication1.Controllers
     public class StudentsController : ControllerBase
     {
          [HttpGet]
-         public string GetStudent() {
-             return "Nowak, Kowalska, Kossak";
+         public string GetStudent(string orderBy) {
+             return $"Nowak, Kowalska, Kossak sortowanie={orderBy}";
          }
         
         [HttpGet("{id}")]
