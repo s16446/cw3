@@ -12,9 +12,21 @@ namespace WebApplication1.Controllers
 
     public class StudentsController : ControllerBase
     {
-        [HttpGet]
-        public string GetStudent() {
-            return "Nowak, Kowalska, Kossak";
+         [HttpGet]
+         public string GetStudent() {
+             return "Nowak, Kowalska, Kossak";
+         }
+        
+        [HttpGet("{id}")]
+        public IActionResult GetStudent(int id) {
+            if (id == 1)
+            {
+                return Ok("Nowak");
+            }
+            else if (id == 2) {
+                return Ok("Malewski");
+            }
+            return NotFound("Nie znaleziono studenta");
         }
     }
 }
