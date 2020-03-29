@@ -8,6 +8,10 @@ namespace WebApplication1.DAL
 {
     public interface IDbService
     {
-        public IEnumerable<Student> GetStudents();
+        IEnumerable<Student> GetStudents();
+        void AddStudent(Student student);
+
+        void DeleteStudent(Student student);
+        IEnumerable<Student> GetStudent(int id);
     }
 }

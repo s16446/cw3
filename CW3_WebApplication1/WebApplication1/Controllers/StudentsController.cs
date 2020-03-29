@@ -14,7 +14,7 @@ namespace WebApplication1.Controllers
 
     public class StudentsController : ControllerBase
     {
-        private readonly IDbService _dbService;
+        private IDbService _dbService;
 
         public StudentsController(IDbService dbService)
         {
@@ -23,25 +23,20 @@ namespace WebApplication1.Controllers
 
         [HttpGet]
         public IActionResult GetStudent(string orderBy) {
-            //return $"Nowak, Kowalska, Kossak sortowanie={orderBy}";
+            //return $"Nowak, Kowalska, Kossak {orderBy}";
             return Ok(_dbService.GetStudents());
         }
 
         [HttpGet("{id}")]
         public IActionResult GetStudent(int id) {
-            if (id == 1)
-            {
-                return Ok("Nowak");
-            }
-            else if (id == 2) {
-                return Ok("Malewski");
-            }
-            return NotFound("Nie znaleziono studenta");
+           // _dbService.GetStudent(id);
+            return Ok(_dbService.GetStudent(id));
         }
 
         [HttpPost]
         public IActionResult CreateStudent(Student student) {
             // ... adding to the database
+            _dbService.AddStudent(student);
             student.IndexNumber = $"s{new Random().Next(1, 20000)}";
             return Ok(student);
         }
@@ -55,6 +50,7 @@ namespace WebApplication1.Controllers
         [HttpDelete("{id}")] // delete
         public IActionResult DeleteStudent(int id)
         {
+            _dbService.DeleteStudent(_dbService.GetStudent(id).ElementAt(0));
             return Ok("Usuwanie zakonczone" + id);
         }
     }
